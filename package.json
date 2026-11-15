@@ -1,0 +1,20 @@
+{
+  "name": "kitesurf-1p",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI に値を見せずに 1Password から Kitesurf の入力欄へログイン情報を入れる入力係（MCP サーバー）",
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "test": "node --test \"test/unit/*.test.mjs\"",
+    "test:unit": "node --test \"test/unit/*.test.mjs\"",
+    "test:leak": "node test/e2e/leak.mjs",
+    "check:real": "node scripts/real-op-check.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "puppeteer-core": "25.17.0",
+    "zod": "4.6.7"
+  }
+}

@@ -1,0 +1,30 @@
+# 部品ごとの試験（npm run test:unit）だけを回す。
+# 次の試験は CI では回さない（Kitesurf・WSL・本物の 1Password が要るため）:
+#   - npm run test:leak   （WSL 上の Kitesurf と試験用サイトが要る）
+#   - npm run check:real  （本物の 1Password と人の操作が要る）
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unit:
+    name: unit (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci --no-audit --no-fund
+      - run: npm run test:unit
